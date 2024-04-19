@@ -33,7 +33,7 @@ class FrameSkippingWrapper(Wrapper):
 
         for _ in range(self.frames_to_skip):
             state, reward, done, truncated, info = self.env.step(action)
-
+            reward_sum += reward
             # If the game ends before the whole skip
             if done is True:
                 break
