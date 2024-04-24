@@ -54,7 +54,7 @@ class Mario():
 		'''
 
 		# Sync'ing the networks after certain period
-		if self.iterations + 1 % self.sync_iteration == 0:
+		if (self.iterations + 1) % self.sync_iteration == 0:
 			print('###############ZMIENIAM##############')
 			self.teacher.load_state_dict(self.mario.state_dict())
 
