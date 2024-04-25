@@ -1,8 +1,15 @@
 import torch
 from torch import nn
-import numpy as np
 from preparation import STACKED_FRAMES
 
+CUDA_FLAG = torch.cuda.is_available()
+DEVICE = "cuda" if CUDA_FLAG else "cpu"
+
+if CUDA_FLAG:
+    print('Wykryto karte, uczenie normalne:')
+    print(torch.cuda.get_device_name(0))
+else:
+    print('Nie wykryto żadnego GPU, uczenie włączone w trybie testowania kodu')
 
 class SMBNeuralNetwork(nn.Module):
     '''
@@ -15,19 +22,17 @@ class SMBNeuralNetwork(nn.Module):
     def __init__(self, evaluation=False):
         super().__init__()
         self.network = nn.Sequential(
-        # First conv layer
-        nn.Conv2d(in_channels=STACKED_FRAMES, out_channels=32, kernel_size=8, stride=4),
+        nn.Conv2d(STACKED_FRAMES, 32, kernel_size=8, stride=4),
         nn.ReLU(),
-        # Second conv layer
-        nn.Conv2d(in_channels=32, out_channels=32, kernel_size=5, stride=1),
+        nn.Conv2d(32, 64, kernel_size=4, stride=2),
         nn.ReLU(),
-
+        nn.Conv2d(64, 128, kernel_size=2, stride=1),
+        nn.ReLU(),
         nn.Flatten(),
         # First linear layer
-        nn.Linear(288, 512),
+        nn.Linear(21632, 512),
         # Second linear layer
         nn.ReLU(),
-
         # 5 values for output layer, same length as RIGHT_ONLY action space
         nn.Linear(512, 5))
 
@@ -35,5 +40,5 @@ class SMBNeuralNetwork(nn.Module):
             for p in self.network.parameters():
                 p.requires_grad = False
 
-    def forward(self, input):
-        return self.network(input)
+    def forward(self, x):
+        return self.network(x)

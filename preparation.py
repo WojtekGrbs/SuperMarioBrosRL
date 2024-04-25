@@ -5,13 +5,28 @@ import gym_super_mario_bros
 from gym_super_mario_bros.actions import RIGHT_ONLY
 from gym.wrappers import GrayScaleObservation, FrameStack, ResizeObservation
 
+####################### KORBKI #########################
+# Czy wyswietlic okienko z gra? Tak/Nie: 'human'/'rgb_array'
+RENDER_MODE = 'rgb_array'
 
-RENDER_MODE = 'human'
-SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v3'
-FRAMES_TO_SKIP = 6
+# Liczba gier do uczenia
+NUMBER_OF_EPISODES = 500
+
+# Sciezka zapisu modelu
+MARIO_MODEL_PATH = None
+
+# Nazwa modelu
+MARIO_MODEL_NAME = 'Mario_lr=0.0005'
+
+# v1, raczej nie ruszac
+SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v1'
+
+# Parametry przeksztalcania srodowiska
+FRAMES_TO_SKIP = 4
 STACKED_FRAMES = 4
-ENVIRONMENT_SIZE = 32
+ENVIRONMENT_SIZE = 128
 
+######################################################
 def generate_env():
     # Creating the env
     env = gym_super_mario_bros.make(SUPER_MARIO_BROS_VERSION, render_mode=RENDER_MODE, apply_api_compatibility=True)
