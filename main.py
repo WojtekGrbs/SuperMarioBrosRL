@@ -1,6 +1,6 @@
 from preparation import *
 from smbneuralnetwork import SMBNeuralNetwork
-from preparation import NUM_OF_EPISODES
+from preparation import NUMBER_OF_EPISODES
 import torch
 import mario
 from charts import learning_outcomes
