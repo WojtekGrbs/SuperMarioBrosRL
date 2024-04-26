@@ -1,5 +1,6 @@
 from preparation import *
 from smbneuralnetwork import SMBNeuralNetwork
+from preparation import NUM_OF_EPISODES
 import torch
 import mario
 from charts import learning_outcomes
@@ -17,7 +18,7 @@ env.reset()
 next_state, reward, done, truncated, info = env.step(0)
 
 # TODO: tylko max x_pos dla danego episode, nie ostatni.
-for i in range(5):
+for i in range(NUM_OF_EPISODES):
 	print("Episode:", i)
 	done = False
 	state, _ = env.reset()
