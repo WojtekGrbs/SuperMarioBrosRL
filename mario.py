@@ -20,9 +20,12 @@ class Mario():
 		self.epsilon_decay = 0.99995
 
 		# Networks
-		self.mario = SMBNeuralNetwork().cuda()
+		self.mario = SMBNeuralNetwork()
+		self.mario = self.mario.to(device=DEVICE)
+		
 		self.teacher = SMBNeuralNetwork(evaluation=True).cuda()
-
+		self.teacher = self.teacher.to(device=DEVICE)
+		
 		# Loss and optimizer
 		self.optimizer = torch.optim.Adam(self.mario.parameters(), lr=self.lr)
 		self.loss = torch.nn.MSELoss()
