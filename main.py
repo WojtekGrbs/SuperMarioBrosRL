@@ -18,7 +18,18 @@ env.reset()
 next_state, reward, done, truncated, info = env.step(0)
 
 # TODO: tylko max x_pos dla danego episode, nie ostatni.
-for i in range(NUM_OF_EPISODES):
+print("Initial episode...")
+state, _ = env.reset()
+total_reward = 0
+step = 0
+initial_steps = 0
+while not done:
+	initial_steps += 1
+	chosen_action = Mario.choose_action(state)
+	new_state, reward, done, truncated, info = env.step(chosen_action)
+	Mario.remember_state(state, new_state, chosen_action, reward, done)
+	state = new_state
+for i in range(NUMBER_OF_EPISODES):
 	print("Episode:", i)
 	done = False
 	state, _ = env.reset()
@@ -26,9 +37,10 @@ for i in range(NUM_OF_EPISODES):
 	losses = []
 	step = 0
 	while not done:
-		a = Mario.choose_action(state)
-		new_state, reward, done, truncated, info = env.step(a)
-		loss = Mario.learn(state=state, action=a, next_state=new_state, done=done, reward=reward)
+		chosen_action = Mario.choose_action(state)
+		new_state, reward, done, truncated, info = env.step(chosen_action)
+		Mario.remember_state(state, new_state, chosen_action, reward, done)
+		loss = Mario.learn()
 		total_reward += reward
 		state = new_state
 		step += 1

@@ -19,12 +19,12 @@ MARIO_MODEL_PATH = None
 MARIO_MODEL_NAME = 'Mario_lr=0.0005'
 
 # v1, raczej nie ruszac
-SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v1'
+SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v3'
 
 # Parametry przeksztalcania srodowiska
 FRAMES_TO_SKIP = 4
 STACKED_FRAMES = 4
-ENVIRONMENT_SIZE = 128
+ENVIRONMENT_SIZE = 64
 
 ######################################################
 def generate_env():

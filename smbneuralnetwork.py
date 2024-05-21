@@ -30,7 +30,7 @@ class SMBNeuralNetwork(nn.Module):
         nn.ReLU(),
         nn.Flatten(),
         # First linear layer
-        nn.Linear(21632, 512),
+        nn.Linear(3200, 512),
         # Second linear layer
         nn.ReLU(),
         # 5 values for output layer, same length as RIGHT_ONLY action space
