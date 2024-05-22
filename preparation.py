@@ -2,37 +2,37 @@ import gym
 from gym import Wrapper
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
-from gym_super_mario_bros.actions import RIGHT_ONLY
-from gym.wrappers import GrayScaleObservation, FrameStack, ResizeObservation
+from gym_super_mario_bros.actions import RIGHT_ONLY, SIMPLE_MOVEMENT, COMPLEX_MOVEMENT
+from gym.wrappers import GrayScaleObservation, FrameStack, ResizeObservation, TransformObservation
 
 ####################### KORBKI #########################
 # Czy wyswietlic okienko z gra? Tak/Nie: 'human'/'rgb_array'
-RENDER_MODE = 'rgb_array'
+RENDER_MODE = 'human'
 
 # Liczba gier do uczenia
-NUMBER_OF_EPISODES = 500
+NUMBER_OF_EPISODES = 6000
 
 # Sciezka zapisu modelu
 MARIO_MODEL_PATH = None
 
-# Nazwa modelu
-MARIO_MODEL_NAME = 'Mario_lr=0.0005'
-
 # v1, raczej nie ruszac
-SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v3'
+SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v1'
+
+# Dostepne ruchy  DO WYBORU: [['right'], ['right', 'A']] // RIGHT_ONLY // SIMPLE_MOVEMENT // COMPLEX_MOVEMENT
+JSPACE = [['right'], ['right', 'A']]
 
 # Parametry przeksztalcania srodowiska
 FRAMES_TO_SKIP = 4
 STACKED_FRAMES = 4
-ENVIRONMENT_SIZE = 64
+ENVIRONMENT_SIZE = 84
 
 ######################################################
 def generate_env():
     # Creating the env
     env = gym_super_mario_bros.make(SUPER_MARIO_BROS_VERSION, render_mode=RENDER_MODE, apply_api_compatibility=True)
-    env = JoypadSpace(env, RIGHT_ONLY)
-    env = ResizeObservation(env, shape=ENVIRONMENT_SIZE)
+    env = JoypadSpace(env, [['right'], ['right', 'A']])
     env = FrameSkippingWrapper(env, frames_to_skip=FRAMES_TO_SKIP)
+    env = ResizeObservation(env, shape=ENVIRONMENT_SIZE)
     env = GrayScaleObservation(env)
     return FrameStack(env, num_stack=STACKED_FRAMES)
 
