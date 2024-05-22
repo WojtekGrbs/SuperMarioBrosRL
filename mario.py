@@ -12,12 +12,12 @@ class Mario():
 	def __init__(self, save_directory, pretrained_model=None):
 
 		# Hyperparameters
-		self.epsilon = 1. #Nie ruszac
+		self.epsilon = 1.
 		self.gamma = 0.9
-		self.sync_iteration = 10_000 #Nie ruszac
+		self.sync_iteration = 10_000
 		self.lr = 0.00025
 		self.epsilon_decay = 0.9999997
-		self.batch_size = 32
+		self.batch_size = 32  # Nie ruszac
 
 		# Networks
 		self.mario = SMBNeuralNetwork()
@@ -167,7 +167,8 @@ class Mario():
 			raise ValueError(f"{load_path} does not exist")
 
 		ckp = torch.load(load_path, map_location=('cuda' if DEVICE=='cuda' else 'cpu'))
-		epsilon = ckp.get('exploration_rate')
+
+		epsilon = ckp.get('epsilon')
 		state_dict_mario = ckp.get('model_mario')
 		state_dict_teacher = ckp.get('model_teacher')
 

@@ -1,7 +1,5 @@
 from preparation import *
-from smbneuralnetwork import SMBNeuralNetwork
 from preparation import NUMBER_OF_EPISODES
-import torch
 import mario
 from charts import learning_outcomes
 import datetime
@@ -42,8 +40,16 @@ for i in range(NUMBER_OF_EPISODES):
 	while not done:
 		chosen_action = Mario.choose_action(state)
 		new_state, reward, done, truncated, info = env.step(chosen_action)
-		if reward < 0:
+		# Poszlismy do przodu
+		if reward > 0:
+			reward = reward + info['x_pos']
+		# Stoimy w miejscu (albo ruch o 1 w prawo !!!
+		elif reward == 0:
+			pass
+		elif reward == -1:
 			reward *= 2
+		else:
+			pass
 		Mario.remember_state(state, new_state, chosen_action, reward, done)
 		loss = Mario.learn()
 		total_reward += reward

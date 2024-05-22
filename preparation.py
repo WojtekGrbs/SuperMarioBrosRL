@@ -5,7 +5,7 @@ import gym_super_mario_bros
 from gym_super_mario_bros.actions import RIGHT_ONLY, SIMPLE_MOVEMENT, COMPLEX_MOVEMENT
 from gym.wrappers import GrayScaleObservation, FrameStack, ResizeObservation, TransformObservation
 
-####################### KORBKI #########################
+####################### KORBKI SRODKOWISKOWE #########################
 # Czy wyswietlic okienko z gra? Tak/Nie: 'human'/'rgb_array'
 RENDER_MODE = 'human'
 
@@ -21,7 +21,7 @@ SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v1'
 # Dostepne ruchy  DO WYBORU: [['right'], ['right', 'A']] // RIGHT_ONLY // SIMPLE_MOVEMENT // COMPLEX_MOVEMENT
 JSPACE = [['right'], ['right', 'A']]
 
-# Parametry przeksztalcania srodowiska
+# Parametry przeksztalcania srodowiska, nie ruszac
 FRAMES_TO_SKIP = 4
 STACKED_FRAMES = 4
 ENVIRONMENT_SIZE = 84
