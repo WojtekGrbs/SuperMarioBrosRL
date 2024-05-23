@@ -8,13 +8,13 @@ def divide_into_N_parts(tab,N):
         s = 0
         for j in range(min(N,len(tab)-i)):
             s += tab[i + j]
-        s = s / len(tab)
+        s = s / min(N, len(tab) - i)
         N_parts.append(s)
      
     return N_parts
     
 
-def learning_outcomes(total_rewards,avg_looses,x,steps,N):
+def learning_outcomes(total_rewards,avg_looses,x,steps,N, save_directory):
 
     total_rewards_N = divide_into_N_parts(total_rewards,N)
     avg_looses_N = divide_into_N_parts(avg_looses,N)
@@ -29,7 +29,7 @@ def learning_outcomes(total_rewards,avg_looses,x,steps,N):
     ax0.plot(x_N)
     ax0.set_xlabel('Episodes')
     ax0.set_ylabel('X')
-    ax0.set_title(f'Average X position per {N} Episode')
+    ax0.set_title(f'Average max X position per {N} Episode')
 
     ax1.plot(avg_looses_N)
     ax1.set_xlabel('Episodes')
@@ -46,4 +46,8 @@ def learning_outcomes(total_rewards,avg_looses,x,steps,N):
     ax3.set_ylabel('Number of Steps')
     ax3.set_title(f'Average Number of Steps per {N} Episode')
     
+
+    save_path = save_directory / f"plots.png"
+
+    plt.savefig(save_path)
     plt.show()

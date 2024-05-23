@@ -65,7 +65,8 @@ for i in range(NUMBER_OF_EPISODES):
 	avg_losses.append(sum(losses) / len(losses))
 	total_rewards.append(total_reward)
 	steps.append(step)
-	x_pos.append(info['x_pos'])
+
+	x_pos.append(x_pos_max)
 Mario.save()
 state, _ = env.reset()
 while not done:
@@ -73,4 +74,4 @@ while not done:
 	new_state, reward, done, truncated, info = env.step(chosen_action)
 	print(info['x_pos'])
 	state = new_state
-learning_outcomes(total_rewards, avg_losses, x_pos, steps, 1)
+learning_outcomes(total_rewards, avg_losses, x_pos, steps, 1, save_directory)
