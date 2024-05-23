@@ -13,6 +13,8 @@ losses = []
 avg_losses = []
 steps = []
 x_pos = []
+clock = []
+left_moves=[]
 
 Mario = mario.Mario(save_directory=save_directory)
 
@@ -37,7 +39,10 @@ for i in range(NUMBER_OF_EPISODES):
 	total_reward = 0
 	losses = []
 	step = 0
+	left_counter=0
+
 	while not done:
+
 		chosen_action = Mario.choose_action(state)
 		new_state, reward, done, truncated, info = env.step(chosen_action)
 		# Poszlismy do przodu
@@ -48,8 +53,11 @@ for i in range(NUMBER_OF_EPISODES):
 			pass
 		elif reward == -1:
 			reward *= 2
+
 		else:
 			pass
+		if chosen_action==0 or chosen_action==6:
+			left_counter += 1
 		Mario.remember_state(state, new_state, chosen_action, reward, done)
 		loss = Mario.learn()
 		total_reward += reward
@@ -65,13 +73,17 @@ for i in range(NUMBER_OF_EPISODES):
 	avg_losses.append(sum(losses) / len(losses))
 	total_rewards.append(total_reward)
 	steps.append(step)
-
+	clock.append(info['time'])
 	x_pos.append(x_pos_max)
+	left_moves.append(left_counter)
+	print('Left moves counter:', left_counter)
+
 Mario.save()
 state, _ = env.reset()
 while not done:
 	chosen_action = Mario.choose_action(state)
 	new_state, reward, done, truncated, info = env.step(chosen_action)
+	env.get_keys_to_action()
 	print(info['x_pos'])
 	state = new_state
-learning_outcomes(total_rewards, avg_losses, x_pos, steps, 1, save_directory)
+learning_outcomes(total_rewards, avg_losses, x_pos, steps, clock, left_moves, 1, save_directory)
