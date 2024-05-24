@@ -7,7 +7,7 @@ from gym.wrappers import GrayScaleObservation, FrameStack, ResizeObservation, Tr
 
 ####################### KORBKI SRODKOWISKOWE #########################
 # Czy wyswietlic okienko z gra? Tak/Nie: 'human'/'rgb_array'
-RENDER_MODE = 'human'
+RENDER_MODE = 'rgb_array'
 
 # Liczba gier do uczenia
 NUMBER_OF_EPISODES = 6000
@@ -19,21 +19,23 @@ MARIO_MODEL_PATH = None
 SUPER_MARIO_BROS_VERSION = 'SuperMarioBros-v1'
 
 # Dostepne ruchy  DO WYBORU: [['right'], ['right', 'A']] // RIGHT_ONLY // SIMPLE_MOVEMENT // COMPLEX_MOVEMENT
-JSPACE = [['right'], ['right', 'A']]
+JSPACE = SIMPLE_MOVEMENT
 
 # Parametry przeksztalcania srodowiska, nie ruszac
 FRAMES_TO_SKIP = 4
 STACKED_FRAMES = 4
 ENVIRONMENT_SIZE = 84
-
 ######################################################
+
+
 def generate_env():
     # Creating the env
     env = gym_super_mario_bros.make(SUPER_MARIO_BROS_VERSION, render_mode=RENDER_MODE, apply_api_compatibility=True)
-    env = JoypadSpace(env, [['right'], ['right', 'A']])
+    env = JoypadSpace(env, JSPACE)
     env = FrameSkippingWrapper(env, frames_to_skip=FRAMES_TO_SKIP)
     env = ResizeObservation(env, shape=ENVIRONMENT_SIZE)
     env = GrayScaleObservation(env)
+    env = TransformObservation(env, f=lambda x: x[10:] / 255.)
     return FrameStack(env, num_stack=STACKED_FRAMES)
 
 

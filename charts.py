@@ -27,35 +27,35 @@ def learning_outcomes(total_rewards,avg_looses,x,steps,clock,left_moves, paramet
     gs.update(wspace=0.25,hspace=0.25)
     ax0, ax1, ax2, ax3, ax4, ax5 = fig.add_subplot(gs[0,0]), fig.add_subplot(gs[0,1]),fig.add_subplot(gs[0,2]), fig.add_subplot(gs[1,0]), fig.add_subplot(gs[1,1]),fig.add_subplot(gs[1,2])
 
-    ax0.plot(x_N)
+    ax0.plot(range(N, len(x_N)*N+1, N),x_N)
     ax0.set_xlabel('Episodes')
     ax0.set_ylabel('X')
-    ax0.set_title(f'Average max X position per {N} Episode')
+    ax0.set_title(f'Average max X position per {N} Episodes')
 
-    ax1.plot(avg_looses_N)
+    ax1.plot(range(N, len(x_N)*N+1, N),avg_looses_N)
     ax1.set_xlabel('Episodes')
     ax1.set_ylabel('Avg Loss')
-    ax1.set_title(f'Average Avg Loss per {N} Episode')
+    ax1.set_title(f'Average Avg Loss per {N} Episodes')
 
-    ax2.plot(total_rewards_N)
+    ax2.plot(range(N, len(x_N)*N+1, N),total_rewards_N)
     ax2.set_xlabel('Episodes')
     ax2.set_ylabel('Total Reward')
-    ax2.set_title(f'Average Total Reward per {N} Episode')
+    ax2.set_title(f'Average Total Reward per {N} Episodes')
     
-    ax3.plot(steps_N)
+    ax3.plot(range(N, len(x_N)*N+1, N),steps_N)
     ax3.set_xlabel('Episodes')
     ax3.set_ylabel('Number of Steps')
-    ax3.set_title(f'Average Number of Steps per {N} Episode')
+    ax3.set_title(f'Average Number of Steps per {N} Episodes')
 
-    ax4.plot(clocks_N)
+    ax4.plot(range(N, len(x_N)*N+1, N),clocks_N)
     ax4.set_xlabel('Episodes')
     ax4.set_ylabel('Avg time')
-    ax4.set_title(f'Average time per {N} Episode')
+    ax4.set_title(f'Average time per {N} Episodes')
 
-    ax5.plot(left_moves_N)
+    ax5.plot(range(N, len(x_N)*N+1, N), left_moves_N)
     ax5.set_xlabel('Episodes')
     ax5.set_ylabel('Left movements counter')
-    ax5.set_title(f'Average left movements per {N} Episode')
+    ax5.set_title(f'Average fraction of left movements per {N} Episodes')
 
     save_path = save_directory / f"plots.png"
     fig.suptitle(f"Charts for parameters: epsilon:{parameters[0]}, learning_rate:{parameters[1]}, gamma:{parameters[2]}, epsilon_decay:{parameters[3]}", fontsize=18)
@@ -76,35 +76,35 @@ def learning_outcomes_learned(total_rewards, avg_looses, x, steps, clock, left_m
     ax0, ax1, ax2, ax3, ax4, ax5 = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(
         gs[0, 2]), fig.add_subplot(gs[1, 0]), fig.add_subplot(gs[1, 1]), fig.add_subplot(gs[1, 2])
 
-    ax0.plot(x_N)
+    ax0.plot(range(0, len(x_N)*100, 100), x_N)
     ax0.set_xlabel('Episodes')
     ax0.set_ylabel('X')
-    ax0.set_title(f'Average max X position per {N} Episode')
+    ax0.set_title(f'Average max X position per {N} Episodes')
 
-    ax1.plot(avg_looses_N)
+    ax1.plot(range(0, len(x_N)*100, 100),avg_looses_N)
     ax1.set_xlabel('Episodes')
     ax1.set_ylabel('Avg Loss')
-    ax1.set_title(f'Average Avg Loss per {N} Episode')
+    ax1.set_title(f'Average Avg Loss per {N} Episodes')
 
-    ax2.plot(total_rewards_N)
+    ax2.plot(range(0, len(x_N)*100, 100),total_rewards_N)
     ax2.set_xlabel('Episodes')
     ax2.set_ylabel('Total Reward')
-    ax2.set_title(f'Average Total Reward per {N} Episode')
+    ax2.set_title(f'Average Total Reward per {N} Episodes')
 
-    ax3.plot(steps_N)
+    ax3.plot(range(0, len(x_N)*100, 100),steps_N)
     ax3.set_xlabel('Episodes')
     ax3.set_ylabel('Number of Steps')
-    ax3.set_title(f'Average Number of Steps per {N} Episode')
+    ax3.set_title(f'Average Number of Steps per {N} Episodes')
 
-    ax4.plot(clocks_N)
+    ax4.plot(range(0, len(x_N)*100, 100),clocks_N)
     ax4.set_xlabel('Episodes')
     ax4.set_ylabel('Avg time')
-    ax4.set_title(f'Average time per {N} Episode')
+    ax4.set_title(f'Average time per {N} Episodes')
 
-    ax5.plot(left_moves_N)
+    ax5.plot(range(0, len(x_N)*100, 100), left_moves_N)
     ax5.set_xlabel('Episodes')
     ax5.set_ylabel('Left movements counter')
-    ax5.set_title(f'Average left movements per {N} Episode')
+    ax5.set_title(f'Average fraction of left movements per {N} Episodes')
 
     save_path1 = save_directory / f"plots_learned.png"
     fig.suptitle(

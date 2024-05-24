@@ -8,16 +8,16 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # TODO: Sprawic, zeby uczenie zaczelo sie dopiero po duzej ilosci randomowych ruchow (zebysmy mieli zapelniony
 #  troche self.memory) i porownac z uczeniem od poczatku. Czy wtedy epsilon decay aplikowac od poczatku czy od momentu rozpoczecia uczenia? Sprawdzic :)
-class Mario():
-	def __init__(self, save_directory, pretrained_model=None):
+class Mario:
+	def __init__(self, save_directory):
 
 		# Hyperparameters
-		self.epsilon = 1.
+		self.epsilon = 1.  # Nie ruszac
 		self.gamma = 0.9
 		self.sync_iteration = 10_000
-		self.lr = 0.00025
-		self.epsilon_decay = 0.9999997
-		self.batch_size = 32  # Nie ruszac
+		self.lr = 0.0003
+		self.epsilon_decay = 0.99999925
+		self.batch_size = 32
 
 		# Networks
 		self.mario = SMBNeuralNetwork()
@@ -32,16 +32,12 @@ class Mario():
 
 		# Default misc
 		self.iterations = 0
-		self.training_flag = True
 
 		# storage
 		self.memory_storage = deque(maxlen=15_000)
 		self.save_increment = 150_000
-		# If pretrained model is being uploaded:
-		if pretrained_model is not None:
-			self.training_flag = False
-			self.mario = pretrained_model
 		self.save_directory = save_directory
+
 	def choose_action(self, state):
 		'''
 		Epsilon greedy approach that encourages random exploration at the initial phases, focuses more on
@@ -51,7 +47,7 @@ class Mario():
 		:return action: index from [0,n], decision made by mario as to which button to press
 		'''
 
-		if (np.random.rand() < self.epsilon) and self.training_flag:
+		if np.random.rand() < self.epsilon:
 			# Random available action
 			return np.random.randint(len(JSPACE))
 		else:
@@ -102,13 +98,6 @@ class Mario():
 			Saves state of the game: (state, next_state, action, reward, done) into a bucket
 			:return: None
 		'''
-
-		# def first_if_tuple(x):
-		# 	return x[0] if isinstance(x, tuple) else x
-		#
-		# state = first_if_tuple(state).__array__()
-		# next_state = first_if_tuple(next_state).__array__()
-
 		if DEVICE == 'cuda':
 			state = torch.FloatTensor(np.array(state)).cuda()
 			next_state = torch.FloatTensor(np.array(next_state)).cuda()
@@ -167,7 +156,6 @@ class Mario():
 			raise ValueError(f"{load_path} does not exist")
 
 		ckp = torch.load(load_path, map_location=('cuda' if DEVICE=='cuda' else 'cpu'))
-
 		epsilon = ckp.get('epsilon')
 		state_dict_mario = ckp.get('model_mario')
 		state_dict_teacher = ckp.get('model_teacher')

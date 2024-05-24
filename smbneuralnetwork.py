@@ -22,16 +22,17 @@ class SMBNeuralNetwork(nn.Module):
     def __init__(self, evaluation=False):
         super().__init__()
         self.network = nn.Sequential(
-        nn.Conv2d(STACKED_FRAMES, 32, kernel_size=8, stride=4),
+        nn.Conv2d(STACKED_FRAMES, 64, kernel_size=8, stride=4),
         nn.ReLU(),
-        nn.Conv2d(32, 64, kernel_size=4, stride=2),
+        nn.Conv2d(64, 64, kernel_size=4, stride=2),
         nn.ReLU(),
-        nn.Conv2d(64, 64, kernel_size=3, stride=1),
+        nn.Conv2d(64, 64, kernel_size=2, stride=1),
         nn.ReLU(),
         nn.Flatten(),
 
         # First linear layer
-        nn.Linear(3136, 512),
+            #3136
+        nn.Linear(3072, 512),
         # Second linear layer
         nn.ReLU(),
         # 5 values for output layer, same length as RIGHT_ONLY action space
