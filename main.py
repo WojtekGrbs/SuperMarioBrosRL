@@ -118,7 +118,7 @@ for i in range(NUMBER_OF_EPISODES):
 		steps_learned.append(step_learned)
 		clock_learned.append(info['time'])
 		x_pos_learned.append(x_pos_max_learned)
-		left_moves_learned.append(left_counter_learned)
+		left_moves_learned.append(left_counter_learned / len(losses_learned))
 		del Mario_temp.memory_storage
 Mario.save()
 state, _ = env.reset()
