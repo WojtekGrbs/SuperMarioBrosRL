@@ -1,4 +1,6 @@
 import numpy as np
+import torch.nn
+
 from smbneuralnetwork import *
 import random
 from collections import deque

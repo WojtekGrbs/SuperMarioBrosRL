@@ -54,7 +54,7 @@ def learning_outcomes(total_rewards,avg_looses,x,steps,clock,left_moves, paramet
 
     ax5.plot(range(N, len(x_N)*N+1, N), left_moves_N)
     ax5.set_xlabel('Episodes')
-    ax5.set_ylabel('Left movements counter')
+    ax5.set_ylabel('Left movements fraction')
     ax5.set_title(f'Average fraction of left movements per {N} Episodes')
 
     save_path = save_directory / f"plots.png"
@@ -103,7 +103,7 @@ def learning_outcomes_learned(total_rewards, avg_looses, x, steps, clock, left_m
 
     ax5.plot(range(0, len(x_N)*100, 100), left_moves_N)
     ax5.set_xlabel('Episodes')
-    ax5.set_ylabel('Left movements counter')
+    ax5.set_ylabel('Left movements fraction')
     ax5.set_title(f'Average fraction of left movements per {N} Episodes')
 
     save_path1 = save_directory / f"plots_learned.png"

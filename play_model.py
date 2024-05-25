@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 #######################################################################
-CHECKPOINT_PATH = 'checkpoints/Pierwszy_full_learn_14/mario_net_14.chkpt'
+CHECKPOINT_PATH = 'checkpoints/05-25 01-49-01/mario_net_16.chkpt'
 #######################################################################
 
 

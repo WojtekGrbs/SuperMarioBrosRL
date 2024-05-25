@@ -6,8 +6,6 @@ import datetime
 from pathlib import Path
 from copy import deepcopy
 
-import matplotlib.pyplot as plt
-import numpy as np
 
 save_directory = Path('checkpoints') / datetime.datetime.now().strftime('%m-%d %H-%M-%S')
 save_directory.mkdir(parents=True)
@@ -61,8 +59,9 @@ for i in range(NUMBER_OF_EPISODES):
 		new_state, reward, done, truncated, info = env.step(chosen_action)
 
 		# Warunek na ukonczenie poziomu
-		if info['x_pos'] > 3151:
+		if info['flag_get']:
 			reward += 500
+
 		if (chosen_action == 0 or chosen_action == 6) and len(JSPACE) > 5:
 			left_counter += 1
 		Mario.remember_state(state, new_state, chosen_action, reward, done)
