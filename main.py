@@ -5,6 +5,7 @@ from charts import learning_outcomes, learning_outcomes_learned
 import datetime
 from pathlib import Path
 from copy import deepcopy
+from rewards import *
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -29,6 +30,7 @@ clock_learned = []
 left_moves_learned=[]
 
 Mario = mario.Mario(save_directory=save_directory)
+Mario.load(Path('checkpoints/05-26 01-14-56/mario_net_3.chkpt'))
 parameters = [Mario.epsilon, Mario.lr, Mario.gamma, Mario.epsilon_decay]
 
 env = generate_env()
@@ -49,6 +51,7 @@ for i in range(NUMBER_OF_EPISODES):
 	print("-----Episode:", i)
 	done = False
 	state, _ = env.reset()
+	previous_info = {'x_pos': 0, 'flag_get': False, 'time':500}
 	x_pos_max = 0
 	total_reward = 0
 	losses = []
@@ -59,6 +62,9 @@ for i in range(NUMBER_OF_EPISODES):
 
 		chosen_action = Mario.choose_action(state)
 		new_state, reward, done, truncated, info = env.step(chosen_action)
+
+		reward += calculate_reward_waste_of_time(info, previous_info)
+		previous_info = info
 
 		# Warunek na ukonczenie poziomu
 		if info['x_pos'] > 3151:

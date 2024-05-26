@@ -7,7 +7,7 @@ from gym.wrappers import GrayScaleObservation, FrameStack, ResizeObservation, Tr
 
 ####################### KORBKI SRODKOWISKOWE #########################
 # Czy wyswietlic okienko z gra? Tak/Nie: 'human'/'rgb_array'
-RENDER_MODE = 'rgb_array'
+RENDER_MODE = 'human'
 
 # Liczba gier do uczenia
 NUMBER_OF_EPISODES = 6000
@@ -35,7 +35,7 @@ def generate_env():
     env = FrameSkippingWrapper(env, frames_to_skip=FRAMES_TO_SKIP)
     env = ResizeObservation(env, shape=ENVIRONMENT_SIZE)
     env = GrayScaleObservation(env)
-    env = TransformObservation(env, f=lambda x: x[10:] / 255.)
+    env = TransformObservation(env, f=lambda x: x[11:] / 255.)
     return FrameStack(env, num_stack=STACKED_FRAMES)
 
 
