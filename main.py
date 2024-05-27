@@ -57,18 +57,14 @@ for i in range(NUMBER_OF_EPISODES):
 	losses = []
 	step = 0
 	left_counter = 0
-	info['stage'] = 1
-	while (not done) and info['stage'] == 1:
+	info['flag_get'] = False
+	while (not done) and (not info['flag_get']):
 
 		chosen_action = Mario.choose_action(state)
 		new_state, reward, done, truncated, info = env.step(chosen_action)
 
 		reward += calculate_reward_waste_of_time(info, previous_info)
 		previous_info = info
-
-		# Warunek na ukonczenie poziomu
-		if info['x_pos'] > 3151:
-			reward += 500
 		if (chosen_action == 0 or chosen_action == 6) and len(JSPACE) > 5:
 			left_counter += 1
 		Mario.remember_state(state, new_state, chosen_action, reward, done)
@@ -103,7 +99,7 @@ for i in range(NUMBER_OF_EPISODES):
 		step_learned = 0
 		left_counter_learned = 0
 		Mario_temp.epsilon = 0.0
-		while not done:
+		while (not done) and (not info['flag_get']):
 			chosen_action = Mario_temp.choose_action(state)
 			if chosen_action == 0 or chosen_action == 6:
 				left_counter_learned += 1
