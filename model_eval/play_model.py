@@ -1,10 +1,10 @@
-from preparation import *
-import mario
+from util.preparation import *
+from agent import mario
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 #######################################################################
-CHECKPOINT_PATH = 'checkpoints/05-25 01-49-01/mario_net_16.chkpt'
+CHECKPOINT_PATH = r'C:\Users\wojte\SuperMarioBrosRL\checkpoints\05-29 16-51-08\mario_taught_198200.chkpt'
 #######################################################################
 
 

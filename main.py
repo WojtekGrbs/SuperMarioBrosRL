@@ -1,7 +1,7 @@
-from preparation import *
-from preparation import NUMBER_OF_EPISODES, JSPACE
-import mario
-from charts import learning_outcomes, learning_outcomes_learned
+from util.preparation import *
+from util.preparation import NUMBER_OF_EPISODES, JSPACE
+from agent import mario
+from util.charts import learning_outcomes, learning_outcomes_learned
 import datetime
 from pathlib import Path
 from copy import deepcopy
