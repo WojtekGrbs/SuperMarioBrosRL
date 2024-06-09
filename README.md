@@ -59,7 +59,7 @@ python ./model_eval/model2gif.py
 ### Results
 #### The best achieved run of Mario was with the time of 339:
 <p align="center">
-<img src="https://github.com/WojtekGrbs/SuperMarioBrosRL/assets/51636941/e243142a-c8da-43da-ae80-97dd92eee01c" width="250" height="250"/>
+<img src="https://github.com/WojtekGrbs/SuperMarioBrosRL/assets/51636941/00dc4537-e900-436e-b751-e5981c0ec0ee" width="250" height="250"/>
 </p>
 <p align="center">
 <img src="https://github.com/WojtekGrbs/SuperMarioBrosRL/assets/51636941/9d449361-9d01-4845-b560-9eac49471f6b" width="600" height="420" />
